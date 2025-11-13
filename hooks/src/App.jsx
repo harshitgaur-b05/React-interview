@@ -1,9 +1,10 @@
 import './App.css'
+import ShowData from './component/ShowData'
 function App() {
   return (
     <>
-    <div className='w-100 h-100 bg-amber-300'></div>
 
+    <ShowData/>
     </>
   )
 }
