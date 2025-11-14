@@ -12,20 +12,31 @@ const SerchFilter = () => {
     const [filterValue, setValue] = useState()
     const [filterData, setData] = useState([]);
     function filter(filterValue) {
-
+        if(filterValue)
         users.forEach((ele) => {
             const user = ele.username.toLowerCase();
             const fil = filterValue.toLowerCase();
             let flag = true;
             for (let i = 0; i < fil.length; i++) {
                 if (user[i] != fil[i]) {
-                    flag = false;
+                    flag = false; 
                 }
             }
-            if (flag) {
+            if (flag==true) {
                 setData([user,...filterData])
             }
         })
+      setData( users.filter((ele)=>{
+                    const user = ele.username.toLowerCase();
+            const fil = filterValue.toLowerCase();
+             let flag = true;
+            for (let i = 0; i < fil.length; i++) {
+                if (user[i] != fil[i]) {
+                    return false;
+                }
+            }
+            return true;
+      })) 
 
     }
     function handelChange(valuees) {
