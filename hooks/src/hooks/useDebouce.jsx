@@ -1,26 +1,31 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { users } from '../data/data';
+import { useState,useEffect } from "react";
 
-const useDebouce = (filterValue, time) => {
-    const [filterData, setData] = useState([]);
-    setTimeout(() => {
-        users.forEach((ele) => {
-            const user = ele.username.toLowerCase();
-            const fil = filterValue.toLowerCase();
-            let flag = true;
-            for (let i = 0; i < fil.length; i++) {
-                if (user[i] != fil[i]) {
-                    flag = false;
-                }
-            }
-            if (flag) {
-                setData([user, ...filterData])
-            }
+export default function useDebounce(value, delay) {
+    const [debouncedValue,setDebouncedValue]=useState(value)
 
-        })
-    }, time)
-    return [filterData]
+    useEffect(()=>{
+        const timer=setTimeout(()=>{
+            setDebouncedValue(value)
+        },delay)
+        return ()=>clearInterval(timer)
+    },[value,delay])
+
+    return debouncedValue;
+    // const [debouncedValue, setDebouncedValue] = useState(value);
+
+    // useEffect(() => {
+    //     // 1. Start a timer when value changes
+    //     const timer = setTimeout(() => {
+    //         console.log(value);
+            
+    //         setDebouncedValue(value);  // Update after delay
+    //     }, delay);
+
+    //     // 2. If value changes again before timer ends, 
+    //     //    clear the old timer and start new one
+    //     return () => clearTimeout(timer);
+    // }, [value, delay]);
+
+    // return debouncedValue;
 }
-
-export default useDebouce
+ 
