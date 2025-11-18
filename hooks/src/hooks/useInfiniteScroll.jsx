@@ -13,8 +13,8 @@ import { useState, useEffect, useRef } from 'react';
     const [data,setData]=useState(null)
 
 
-    function fetchFunction(page,limit){
-      fetch(`https://api.example.com/items?limit=${limit}&page=${page}`).then(res=>res.json()).then(data=>setData(data))
+   async function fetchFunction(page,limit){
+     await fetch(`https://api.example.com/items?limit=${limit}&page=${page}`).then(res=>res.json()).then(data=>setData(data))
     }
 
     // Load more function
